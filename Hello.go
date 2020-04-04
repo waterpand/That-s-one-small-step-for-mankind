@@ -1,25 +1,29 @@
-package main
+package main          // не работает, если корень из х больше предустановленного z (сейчас 999999)
 
-import (
+import(
   "fmt"
+  "math"
 )
 
+func Sqrt(x float64) float64 {
+  v := math.Sqrt(x)
+  return v
+}
+
 func main() {
-  var a int
-  fmt.Println("Hello, world", "Введи число: ")
-  fmt.Scan(&a)
-  if a < 5 {
-    fmt.Println("Сопляк!")
-  } else if a == 5 {
-      fmt.Println("В детский сад, щегол!")
-  } else if (a > 5) && (a < 18) {
-      fmt.Println("Почему не в школе, шкед?")
-      fmt.Println("Дуй в ", (a - 6), " класс!" )
-  } else if (a >= 18) && (a <= 23) {
-      fmt.Println("К сессии готов?")
-  } else if (a > 23) && (a <= 27) {
-      fmt.Println("Становись, ровняйсь, смирно!")
-  } else if (a > 27) {
-      fmt.Println("да не парься уже, до пенсии осталось всего ", (65 - a), " лет. Посторайся дотянуть...")
+  var z, z1, x, n float64 = 999999, 0, 18, 1
+  i := 0
+  fmt.Print("Введите х: ")
+  fmt.Scanln(&x)
+  fmt.Print("Введите порядок точности для сравнения с функцией math.Sqrt (3..12): ")
+  fmt.Scanln(&n)
+  s := math.Pow(10, n)
+  z0 := Sqrt(x)
+  for ; (z/z0)-1 > (1/s); z = z1 {
+    z1 = z - (z * z - x) / (2 * z)
+    i++
   }
+  fmt.Println("Выполнено ", i," итерации(й) вычисления.")
+  fmt.Println(z1, " -- значение, полученное методом Ньютона")
+  fmt.Println(z0, " -- Квадратный корень, вычесленный функцией math.Sqrt(x)")
 }
