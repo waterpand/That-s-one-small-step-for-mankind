@@ -11,13 +11,20 @@ func Sqrt(x float64) float64 {
 }
 
 func main() {
-  var z, z1, x float64 = 11, 0, 18
+  var z, z1, x, n float64 = 11, 0, 18, 1
+//  n := 1
   i := 0
+  fmt.Print("Введите х: ")
+  fmt.Scanln(&x)
+  fmt.Print("Введите порядок точности для сравнения с функцией math.Sqrt (3..12): ")
+  fmt.Scanln(&n)
+  s := math.Pow(10, n)
+  fmt.Println(float64(s))
   z0 := Sqrt(x)
-  for ; ((z/z0)-1 > 0.0000000000001); z = z1 {
+  for ; (z/z0)-1 > (1/s); z = z1 {            // 1/(float64(10^n)))
     z1 = z - (z * z - x) / (2 * z)
     i++
     fmt.Println(i,") ",z1, "       отношение z/z0 = ", z/z0)
   }
-  fmt.Println(z0, " - Квадратный корень math.Sqrt(x)")
+  fmt.Println("    ",z0, " - Квадратный корень math.Sqrt(x)")
 }
