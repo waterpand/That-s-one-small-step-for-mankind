@@ -1,4 +1,4 @@
-package main
+package main                            // 1)добавить ввод х и 2)реализовать измененние точности при сравнении
 
 import(
   "fmt"
@@ -11,12 +11,13 @@ func Sqrt(x float64) float64 {
 }
 
 func main() {
-  var z, z1, x float64 = 10, 0, 18
+  var z, z1, x float64 = 11, 0, 18
+  i := 0
   z0 := Sqrt(x)
-  for i := 0; i < 10; i++ {
+  for ; ((z/z0)-1 > 0.0000000000001); z = z1 {
     z1 = z - (z * z - x) / (2 * z)
-    z = z1
-    fmt.Println(z1)
+    i++
+    fmt.Println(i,") ",z1, "       отношение z/z0 = ", z/z0)
   }
-  fmt.Println("Квадратный корень из ", x, " = ", z0)
+  fmt.Println(z0, " - Квадратный корень math.Sqrt(x)")
 }
