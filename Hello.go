@@ -1,26 +1,19 @@
-                                                // a[0:10] эти записи эквивалентны
-                                                // a[:10] Значением по умолчанию для нижней границы является нуль, а для верхней - размер среза.
-                                                // a[0:]
-                                                // a[:]
-
-
-
-package main
+package main		// Найти сумму нечетных цифр числа          (a % b) - остаток от деления
 
 import "fmt"
-
-func main() {
-	s := []int{2, 3, 5, 7, 11, 13}
-
-	s = s[1:4]                                 // [3 5 7]
-	fmt.Println(s)
-
-	s = s[:2]                                  // [3 5]
-	fmt.Println(s)
-
-	s = s[1:]                                  // [5]
-	fmt.Println(s)
-
-    fmt.Println(3*3)
-    fmt.Println(1E3)
+var n, d, sum int
+func main(){
+	fmt.Println("Нахождение суммы нечетных цифр числа.")
+	fmt.Print("Введите целое число:")
+	fmt.Scanln(&n)
+	for ; n > 0 ; n = n/10 {
+		d = (n % 10)
+		if ((d % 2) != 0) {
+			sum = sum + d
+		}
+		// fmt.Println("Число =", n)
+		// fmt.Println("Остаток =", d)
+		// fmt.Println("Сумма =", sum)
+	}
+	fmt.Println("Сумма =", sum)
 }
