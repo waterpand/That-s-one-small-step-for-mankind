@@ -1,22 +1,18 @@
-package main // Вывести на экран кубы чисел от A до B, которые вводит пользователь.          (a % b) - остаток от деления
+package main //Вычисление факториала числа             после 20 значение факториала становится отрицательным, почему?
+//(a % b) - остаток от деления
 
 import "fmt"
 
-var (
-	a, b int
-)
+var a int
+var f int = 1
 
 func main() {
-	fmt.Print("Введите число А:")
+	fmt.Print("Введите число :")
 	fmt.Scanln(&a)
-	fmt.Print("Введите число B:")
-	fmt.Scanln(&b)
-	if a > b {
-		fmt.Println("Число А должно быть меньше числа В")
-	} else {
-		for ; a <= b; a++ {
-			c := (a * a * a)
-			fmt.Println(c)
-		}
+
+	for i := 1; i <= a; i++ {
+		f = f * i
+		fmt.Println(f)
 	}
+	fmt.Println("Факториал числа", a, "равен", f)
 }
