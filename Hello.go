@@ -1,27 +1,16 @@
-package main //Задача 2. Найти сумму и количество элементов последовательности, которые по модулю больше 0.001.
-//S = 1/2 - 2/4 + 3/8 - 4/16 + ... - ...
-//(a % b) - остаток от деления
+package main //Задача. Вывести все квадраты натуральных чисел, не превосходящие данного числа N.
+//Пример: N=50 | 1 4 9 16 25 36 49
 
 import (
 	"fmt"
-	"math"
 )
 
-var i int = 1
-var a, b, sum, z float64 = 1, 2, 0, 1
+var n, x int
 
 func main() {
-	for math.Abs(float64(a/b)) > 0.001 {
-		sum = sum + (a/b)*z
-		z = -z
-		fmt.Print("step", i, "   ")
-		fmt.Print("a=", a)
-		fmt.Print("   b=", b)
-		fmt.Println("    sum= ", sum)
-		i++
-		a = (math.Abs(a) + 1)
-		b = b * 2
-
+	fmt.Print("Введите число ")
+	fmt.Scan(&n)
+	for i := 1; (i * i) < n; i++ {
+		fmt.Println(i, "   ", i*i)
 	}
-	fmt.Println("Сумма первых", i, "элементов последовательности равна", sum)
 }
