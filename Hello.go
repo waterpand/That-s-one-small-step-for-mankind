@@ -1,4 +1,4 @@
-package main //Задача. Разделить элементы массива на максимальный
+package main //Задача. Поменять максимальный и минимальный элементы массива
 
 import (
 	"fmt"
@@ -7,24 +7,31 @@ import (
 )
 
 var (
-	m   [15]float64
-	max float64
+	m                 [15]int
+	max, min, k, n, p int
 )
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < 15; i++ {
-		m[i] = float64(rand.Intn(99))
+		m[i] = rand.Intn(99)
 	}
+	min = 100
 	for i := 0; i < 15; i++ {
 		if max < m[i] {
 			max = m[i]
+			k = i
+		}
+		if min > m[i] {
+			min = m[i]
+			n = i
 		}
 	}
-	fmt.Println(max)
+	fmt.Println(min, n)
+	fmt.Println(max, k)
 	fmt.Println(m)
-	for i := 0; i < 15; i++ {
-		m[i] = m[i] / max
-	}
+	p = m[k]
+	m[k] = m[n]
+	m[n] = p
 	fmt.Println(m)
 }
