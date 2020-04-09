@@ -1,4 +1,4 @@
-package main //Задача. Вывести элементы числового массива, которые больше, чем элементы, стоящие перед ними
+package main //Задача. Разделить элементы массива на максимальный
 
 import (
 	"fmt"
@@ -7,18 +7,24 @@ import (
 )
 
 var (
-	m [15]int
+	m   [15]float64
+	max float64
 )
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < 15; i++ {
-		m[i] = rand.Intn(99)
+		m[i] = float64(rand.Intn(99))
 	}
-	for i := 1; i < 15; i++ {
-		if m[i-1] < m[i] {
-			fmt.Println(m[i])
+	for i := 0; i < 15; i++ {
+		if max < m[i] {
+			max = m[i]
 		}
+	}
+	fmt.Println(max)
+	fmt.Println(m)
+	for i := 0; i < 15; i++ {
+		m[i] = m[i] / max
 	}
 	fmt.Println(m)
 }
