@@ -1,16 +1,24 @@
-package main //Задача.   Вычислить сумму ряда чисел 1/1^2 + 1/2^2 + 1/3^2 + … + 1/n^2, где n определяется пользователем
+package main //Задача. Вывести элементы числового массива, которые больше, чем элементы, стоящие перед ними
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 var (
-	n, sum float64
+	m [15]int
 )
 
 func main() {
-	fmt.Print("Введите число: ")
-	fmt.Scanln(&n)
-	for ; n != 0; n-- {
-		sum = sum + (1 / (n * n))
+	rand.Seed(time.Now().UnixNano())
+	for i := 0; i < 15; i++ {
+		m[i] = rand.Intn(99)
 	}
-	fmt.Println("Сумма ряда равна: ", sum)
+	for i := 1; i < 15; i++ {
+		if m[i-1] < m[i] {
+			fmt.Println(m[i])
+		}
+	}
+	fmt.Println(m)
 }
