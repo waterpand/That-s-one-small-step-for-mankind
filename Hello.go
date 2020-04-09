@@ -1,23 +1,27 @@
-package main //Задача. Найти сумму первой и последней цифр любого целого положительного числа.
+package main //Задача.  Найти сумму цифр ab + cd числа abcd
 
-//Найти сумму цифр ab + cd числа abcd
 //Посчитать четные и нечетные цифры числа
 
 import "fmt"
 
 var (
-	a, i int
-	num  [20]int
+	a, ab, cd int
+	num       [4]int
 )
 
 func main() {
-	fmt.Print("Введите число ")
+	fmt.Print("Введите любое четырехзначное число ")
 	fmt.Scanln(&a)
-	for ; a > 99/100; a = a / 10 {
-		num[i] = (a % 10)
-		i++
+	for (a < 1000) || (a > 9999) {
+		fmt.Print("четырехзначное число ")
+		fmt.Scanln(&a)
 	}
-	fmt.Println("Первая цифра числа ", num[i-1])
-	fmt.Println("Последняя цифра числа ", num[0])
-	fmt.Println("Их сумма ", num[0]+num[i-1])
+	for i := 3; a > 99/100; a = a / 10 {
+		num[i] = (a % 10)
+		i = i - 1
+	}
+	ab = num[0]*10 + num[1]
+	cd = num[2]*10 + num[3]
+	fmt.Println("Сумма цифр ab + cd равна ", ab, "+", cd, "=", ab+cd)
+	fmt.Println("произведение ab * cd равно ", ab, "*", cd, "=", ab*cd)
 }
