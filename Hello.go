@@ -1,27 +1,35 @@
-package main //Задача.  Найти сумму цифр ab + cd числа abcd
-
-//Посчитать четные и нечетные цифры числа
+package main //Задача.  Посчитать четные и нечетные цифры числа
 
 import "fmt"
 
 var (
-	a, ab, cd int
-	num       [4]int
+	a, i, b, d int
+	c, e       int = 1, 1
+	num        [20]int
 )
 
 func main() {
-	fmt.Print("Введите любое четырехзначное число ")
+	fmt.Print("Введите число ")
 	fmt.Scanln(&a)
-	for (a < 1000) || (a > 9999) {
-		fmt.Print("четырехзначное число ")
-		fmt.Scanln(&a)
-	}
-	for i := 3; a > 99/100; a = a / 10 {
+	for ; a > 99/100; a = a / 10 {
 		num[i] = (a % 10)
-		i = i - 1
+		i++
+
 	}
-	ab = num[0]*10 + num[1]
-	cd = num[2]*10 + num[3]
-	fmt.Println("Сумма цифр ab + cd равна ", ab, "+", cd, "=", ab+cd)
-	fmt.Println("произведение ab * cd равно ", ab, "*", cd, "=", ab*cd)
+	i = i - 1 //компенсация лишнего инкремента i++ в последнем цикле
+	// fmt.Println(len(num), cap(num))
+	for j := 0; i-j > -1; j++ {
+		if j%2 != 0 { //чётное
+			d = d + num[i-j]
+			e = e * num[i-j]
+		} else { //нечетное
+			b = b + num[i-j]
+			c = c * num[i-j]
+
+		}
+
+	}
+
+	fmt.Println("Сумма нечетных ", b, "произведение ", c)
+	fmt.Println("Сумма четных ", d, "произведение ", e)
 }
