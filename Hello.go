@@ -1,4 +1,4 @@
-package main //Задача. Найти сумму четных отрицательных элементов массива
+package main //Задача. В массиве найти минимальное значение среди элементов с нечетными индексами.
 
 import (
 	"fmt"
@@ -7,11 +7,11 @@ import (
 )
 
 var (
-	m   [20]int
-	sum int
+	m         [20]int
+	sum, sum1 int = 50, 0
 )
 
-func cycle() [20]int {
+func arrCr() [20]int { // Заполнение массива
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < 20; i++ {
 		m[i] = rand.Intn(99) - 50
@@ -20,17 +20,16 @@ func cycle() [20]int {
 }
 
 func main() {
-	//rand.Seed(time.Now().UnixNano())
-	//for i := 0; i < 20; i++ { // Заполнение массива
-	//	m[i] = rand.Intn(99) - 50
-
-	//}
-	m = cycle()
-	fmt.Println(m)
-	for i := 0; i < 20; i++ {
-		if m[i] < 0 && (m[i]%2) == 0 {
-			sum = sum + m[i]
+	for k := 0; k < 100; k++ {
+		m = arrCr()
+		for i := 0; i < len(m); i++ {
+			if m[i] < sum && i%2 != 0 {
+				sum = m[i]
+			}
 		}
+		fmt.Println(m)
+		fmt.Println(sum)
+		sum1 = sum1 + sum
 	}
-	fmt.Println(m, sum)
+	fmt.Println(sum1 / 100)
 }
