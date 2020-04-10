@@ -1,42 +1,46 @@
-package main //Задача. Вывести элементы массива, которые больше среднего арифметического
+package main //Задача. Расстояние между точками в n-мерном пространстве
+//При заданных координатах A1, A2, ..., An одной точки и координатах B1, B2, ..., Bn другой точки n-мерного пространства. Найти расстояние между ними по формуле sqrt(sqr(A1-B1) + ... + sqr(An-Bn)).
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"time"
 )
 
 var (
-	m   [25]int
-	avr int
+	cA, cB []int
+	n      int
+	d      float64
 )
 
-func ArrCr() [25]int {
+func CreatePoint(int) []int {
 	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 25; i++ {
-		m[i] = rand.Intn(155)
+	coord := []int{}
+	for i := 0; i < n; i++ {
+		coord = append(coord, rand.Intn(10))
 	}
-	return m
+	return coord
 }
 
 func main() {
-	m = ArrCr()
-	//fmt.Println(m)
-	for i := 0; i < len(m); i++ {
-		avr = avr + m[i]
+	// fmt.Print("Определить мерность пространства: ")
+	// fmt.Scanln(&n)
+	rand.Seed(time.Now().UnixNano())
+	n = rand.Intn(11)
+	fmt.Println("Мерность пространства: ", n)
+	cA = CreatePoint(n)
+	fmt.Println("Координаты точки А: ", cA)
+	time.Sleep(10 * time.Millisecond)
+	cB = CreatePoint(n)
+	fmt.Println("Координаты точки В: ", cB)
+
+	for i := 0; i < n; i++ {
+		d = d + float64((cA[i]-cB[i])*(cA[i]-cB[i]))
 	}
-	avr = avr / 25
-	fmt.Println("Среднеарифметическое массива: ", avr)
-	avrrr := []int{}
-	for i := 0; i < len(m); i++ {
-		if avr < m[i] {
-			//fmt.Print(m[i], " ")
-			avrrr = append(avrrr, m[i])
-		} else {
-			avrrr = append(avrrr, 0)
-		}
-	}
-	//fmt.Println()
-	fmt.Println(m)
-	fmt.Println(avrrr)
+
+	fmt.Println(d)
+	d = math.Sqrt(d)
+	fmt.Println("Расстояние между точками А и В: ", d)
+
 }
