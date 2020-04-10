@@ -1,4 +1,4 @@
-package main //Задача. Поменять максимальный и минимальный элементы массива
+package main //Задача. Заменить элементы массива на противоположные
 
 import (
 	"fmt"
@@ -7,31 +7,20 @@ import (
 )
 
 var (
-	m                 [15]int
-	max, min, k, n, p int
+	m          [20]int
+	sum1, sum2 int
 )
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 15; i++ {
-		m[i] = rand.Intn(99)
+	for i := 0; i < 20; i++ { // Заполнение массива
+		m[i] = rand.Intn(99) - 50
+		sum1 = sum1 + m[i]
 	}
-	min = 100
-	for i := 0; i < 15; i++ {
-		if max < m[i] {
-			max = m[i]
-			k = i
-		}
-		if min > m[i] {
-			min = m[i]
-			n = i
-		}
+	fmt.Println(m, "  sum1 = ", sum1)
+	for i := 0; i < 20; i++ {
+		m[i] = -m[i]
+		sum2 = sum2 + m[i]
 	}
-	fmt.Println(min, n)
-	fmt.Println(max, k)
-	fmt.Println(m)
-	p = m[k]
-	m[k] = m[n]
-	m[n] = p
-	fmt.Println(m)
+	fmt.Println(m, "  sum2 = ", sum2)
 }
