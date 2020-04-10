@@ -1,4 +1,4 @@
-package main //Задача. В массиве найти минимальное значение среди элементов с нечетными индексами.
+package main //Задача. Вывести элементы массива, которые больше среднего арифметического
 
 import (
 	"fmt"
@@ -7,29 +7,36 @@ import (
 )
 
 var (
-	m         [20]int
-	sum, sum1 int = 50, 0
+	m   [25]int
+	avr int
 )
 
-func arrCr() [20]int { // Заполнение массива
+func ArrCr() [25]int {
 	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 20; i++ {
-		m[i] = rand.Intn(99) - 50
+	for i := 0; i < 25; i++ {
+		m[i] = rand.Intn(155)
 	}
 	return m
 }
 
 func main() {
-	for k := 0; k < 100; k++ {
-		m = arrCr()
-		for i := 0; i < len(m); i++ {
-			if m[i] < sum && i%2 != 0 {
-				sum = m[i]
-			}
-		}
-		fmt.Println(m)
-		fmt.Println(sum)
-		sum1 = sum1 + sum
+	m = ArrCr()
+	//fmt.Println(m)
+	for i := 0; i < len(m); i++ {
+		avr = avr + m[i]
 	}
-	fmt.Println(sum1 / 100)
+	avr = avr / 25
+	fmt.Println("Среднеарифметическое массива: ", avr)
+	avrrr := []int{}
+	for i := 0; i < len(m); i++ {
+		if avr < m[i] {
+			//fmt.Print(m[i], " ")
+			avrrr = append(avrrr, m[i])
+		} else {
+			avrrr = append(avrrr, 0)
+		}
+	}
+	//fmt.Println()
+	fmt.Println(m)
+	fmt.Println(avrrr)
 }
