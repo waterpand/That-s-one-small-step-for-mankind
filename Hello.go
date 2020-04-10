@@ -1,4 +1,4 @@
-package main //Задача. Заменить элементы массива на противоположные
+package main //Задача. Найти сумму четных отрицательных элементов массива
 
 import (
 	"fmt"
@@ -7,20 +7,30 @@ import (
 )
 
 var (
-	m          [20]int
-	sum1, sum2 int
+	m   [20]int
+	sum int
 )
 
-func main() {
+func cycle() [20]int {
 	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 20; i++ { // Заполнение массива
-		m[i] = rand.Intn(99) - 50
-		sum1 = sum1 + m[i]
-	}
-	fmt.Println(m, "  sum1 = ", sum1)
 	for i := 0; i < 20; i++ {
-		m[i] = -m[i]
-		sum2 = sum2 + m[i]
+		m[i] = rand.Intn(99) - 50
 	}
-	fmt.Println(m, "  sum2 = ", sum2)
+	return m
+}
+
+func main() {
+	//rand.Seed(time.Now().UnixNano())
+	//for i := 0; i < 20; i++ { // Заполнение массива
+	//	m[i] = rand.Intn(99) - 50
+
+	//}
+	m = cycle()
+	fmt.Println(m)
+	for i := 0; i < 20; i++ {
+		if m[i] < 0 && (m[i]%2) == 0 {
+			sum = sum + m[i]
+		}
+	}
+	fmt.Println(m, sum)
 }
