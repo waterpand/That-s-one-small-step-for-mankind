@@ -1,41 +1,34 @@
-package main //Задача. Какая сумма элементов массива больше – с первого до элемента с номером К или от элемента с номером К+1 до последнего.
+package main //Задача. Вывести в порядке возрастания цифры, из которых состоит число
+
 import (
 	"fmt"
-	"math/rand"
-	"time"
 )
 
 var (
-	m             [25]int
-	sum1, sum2, k int
+	c, min, j int
+	s, p      []int
 )
 
-func arrCr(x, y int) [25]int {
-	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 25; i++ {
-		m[i] = rand.Intn(x) - y
-	}
-	return m
-}
-
 func main() {
-	fmt.Print("k= ")
-	fmt.Scanln(&k)
-	x := 99
-	y := 0
-	m = arrCr(x, y)
-	fmt.Println(m)
-	for i := 0; i < len(m); i++ {
-		if i <= k {
-			sum1 = sum1 + m[i]
-		} else {
-			sum2 = sum2 + m[i]
+	fmt.Println("Задача: Вывести в порядке возрастания цифры, из которых состоит число.")
+	fmt.Print("Введите число: ")
+	fmt.Scanln(&c)
+	for ; c > 0; c = c / 10 {
+		s = append(s, (c % 10))
+	}
+	fmt.Println(s)
+	for i := len(s) - 1; i >= 0; i-- {
+		min = 11
+		for k := i; k >= 0; k-- {
+			if s[k] < min {
+				min = s[k]
+				j = k
+			}
 		}
+		//fmt.Println(min)
+		s = append(s[:j], s[j+1:]...)
+		//fmt.Println(s)
+		p = append(p, min)
 	}
-	if sum1 > sum2 {
-		fmt.Println("Сумма элементов массива с первого и до k-того элементов больше, чем сумма элементов массива с k+1 и до последнеого элемента", sum1, " > ", sum2)
-	} else {
-		fmt.Println("Сумма элементов массива с первого и до k-того элементов меньше, чем сумма элементов массива с k+1 и до последнеого элемента", sum1, " < ", sum2)
-	}
-
+	fmt.Println(p)
 }
