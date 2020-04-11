@@ -1,4 +1,4 @@
-package main //Задача. Дан массив A вещественного типа, содержащий 20 положительных и отрицательных элементов. Сформировать массив B из положительных элементов массива A, имеющих четный индекс. Найти сумму квадратов элементов нового массива.
+package main //Задача. Найти среднее арифметическое отрицательных элементов массива. Заменить на него минимальный элемент.
 
 import (
 	"fmt"
@@ -7,28 +7,33 @@ import (
 )
 
 var (
-	a   [20]int
-	b   []int
-	sum int
+	m        [25]int
+	av, c, n int
+	min      int = 50
 )
 
-func arrCr() [20]int {
+func arrCr() [25]int {
 	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 20; i++ {
-		a[i] = rand.Intn(99) - 50
+	for i := 0; i < 25; i++ {
+		m[i] = rand.Intn(99) - 50
 	}
-	return a
+	return m
 }
 
 func main() {
-	a = arrCr()
-	fmt.Println(a)
-	for i := 0; i < 20; i++ {
-		if a[i] > 0 && i%2 == 0 {
-			b = append(b, a[i])
-			sum = sum + a[i]*a[i]
+	m = arrCr()
+	fmt.Println(m)
+	for i := 0; i < len(m); i++ {
+		if m[i] < 0 {
+			av = av + m[i]
+			c++
+		}
+		if m[i] < min {
+			min = m[i]
+			n = i
 		}
 	}
-	fmt.Println(b)
-	fmt.Println(sum)
+	m[n] = av / c
+	fmt.Println("Минимальный элемент массива", min, "с индексом", n, "меняется на среднеарифметическое отрицательных элементов", av/c)
+	fmt.Println(m)
 }
