@@ -1,4 +1,4 @@
-package main //Задача. Среднее арифметическое всех чётных элементов массива, стоящих на нечётных местах
+package main //Задача. Какая сумма элементов массива больше – с первого до элемента с номером К или от элемента с номером К+1 до последнего.
 import (
 	"fmt"
 	"math/rand"
@@ -6,9 +6,8 @@ import (
 )
 
 var (
-	m     [25]int
-	av, n int
-	av_n  float64
+	m             [25]int
+	sum1, sum2, k int
 )
 
 func arrCr(x, y int) [25]int {
@@ -20,22 +19,23 @@ func arrCr(x, y int) [25]int {
 }
 
 func main() {
+	fmt.Print("k= ")
+	fmt.Scanln(&k)
 	x := 99
-	y := 50
+	y := 0
 	m = arrCr(x, y)
 	fmt.Println(m)
 	for i := 0; i < len(m); i++ {
-		if m[i]%2 == 0 && i%2 != 0 {
-			av = av + m[i]
-			n++
+		if i <= k {
+			sum1 = sum1 + m[i]
+		} else {
+			sum2 = sum2 + m[i]
 		}
 	}
+	if sum1 > sum2 {
+		fmt.Println("Сумма элементов массива с первого и до k-того элементов больше, чем сумма элементов массива с k+1 и до последнеого элемента", sum1, " > ", sum2)
+	} else {
+		fmt.Println("Сумма элементов массива с первого и до k-того элементов меньше, чем сумма элементов массива с k+1 и до последнеого элемента", sum1, " < ", sum2)
+	}
 
-	//fmt.Println(av, n)
-	av_n = float64(av) / float64(n)
-	// av_f := float64(av)
-	// n_f := float64(n)
-	// av_n = av_f / n_f
-	fmt.Println(av_n)
-	//fmt.Println(float64(av) / float64(n))
 }
