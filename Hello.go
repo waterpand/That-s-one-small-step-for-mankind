@@ -1,46 +1,34 @@
-package main //Задача. Расстояние между точками в n-мерном пространстве
-//При заданных координатах A1, A2, ..., An одной точки и координатах B1, B2, ..., Bn другой точки n-мерного пространства. Найти расстояние между ними по формуле sqrt(sqr(A1-B1) + ... + sqr(An-Bn)).
+package main //Задача. Дан массив A вещественного типа, содержащий 20 положительных и отрицательных элементов. Сформировать массив B из положительных элементов массива A, имеющих четный индекс. Найти сумму квадратов элементов нового массива.
 
 import (
 	"fmt"
-	"math"
 	"math/rand"
 	"time"
 )
 
 var (
-	cA, cB []int
-	n      int
-	d      float64
+	a   [20]int
+	b   []int
+	sum int
 )
 
-func CreatePoint(int) []int {
+func arrCr() [20]int {
 	rand.Seed(time.Now().UnixNano())
-	coord := []int{}
-	for i := 0; i < n; i++ {
-		coord = append(coord, rand.Intn(10))
+	for i := 0; i < 20; i++ {
+		a[i] = rand.Intn(99) - 50
 	}
-	return coord
+	return a
 }
 
 func main() {
-	// fmt.Print("Определить мерность пространства: ")
-	// fmt.Scanln(&n)
-	rand.Seed(time.Now().UnixNano())
-	n = rand.Intn(11)
-	fmt.Println("Мерность пространства: ", n)
-	cA = CreatePoint(n)
-	fmt.Println("Координаты точки А: ", cA)
-	time.Sleep(10 * time.Millisecond)
-	cB = CreatePoint(n)
-	fmt.Println("Координаты точки В: ", cB)
-
-	for i := 0; i < n; i++ {
-		d = d + float64((cA[i]-cB[i])*(cA[i]-cB[i]))
+	a = arrCr()
+	fmt.Println(a)
+	for i := 0; i < 20; i++ {
+		if a[i] > 0 && i%2 == 0 {
+			b = append(b, a[i])
+			sum = sum + a[i]*a[i]
+		}
 	}
-
-	fmt.Println(d)
-	d = math.Sqrt(d)
-	fmt.Println("Расстояние между точками А и В: ", d)
-
+	fmt.Println(b)
+	fmt.Println(sum)
 }
