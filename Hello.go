@@ -1,4 +1,4 @@
-package main //Задача. Определить индексы элементов массива, значение которых лежит в указанном пределе.
+package main //Задача. В однородном массиве, состоящем из N вещественных элементов, найти максимальный по модулю элемент массива..
 
 import (
 	"fmt"
@@ -7,41 +7,31 @@ import (
 )
 
 var (
-	m           [50]int
-	s           []int
-	max, min, n int
+	m         [25]int
+	max, n, k int
 )
 
-func arrCr() [50]int {
+func arrCr() [25]int {
 	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 50; i++ {
-		m[i] = rand.Intn(100)
+	for i := 0; i < 25; i++ {
+		m[i] = rand.Intn(99) - 50
 	}
 	return m
 }
 
 func main() {
-	fmt.Println("Определить индексы элементов массива, значение которых лежит в указанном пределе.")
 	m = arrCr()
-	fmt.Println("Укажите минимальное значение интервала 0...100: ")
-	fmt.Scan(&min)
-	fmt.Println("Укажите максимальное значение интервала 0...100: ")
-	fmt.Scan(&max)
-	for i := 0; i < len(m); i++ {
-		if m[i] > min && m[i] < max {
-			s = append(s, i)
-			n++
+
+	for i := 0; i < 25; i++ {
+		n = m[i]
+		if n < 0 {
+			n = -n
+		}
+		if n > max {
+			max = n
+			k = i
 		}
 	}
-	fmt.Println("В указанный диапазо попадают ", n, "элементов массива")
-	fmt.Println("Их индексы: ", s)
-	fmt.Println("Сам массив: ", m)
+	fmt.Println(m)
+	fmt.Println(m[k])
 }
-
-// func arrCr() [25]int {
-// 	rand.Seed(time.Now().UnixNano())
-// 	for i := 0; i < 25; i++ {
-// 		m[i] = rand.Intn(99) - 50
-// 	}
-// 	return m
-// }
