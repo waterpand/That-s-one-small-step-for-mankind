@@ -1,5 +1,4 @@
-package main //Задача. В однородном массиве, состоящем из N вещественных элементов, найти максимальный по модулю элемент массива..
-
+package main //Задача. Среднее арифметическое всех чётных элементов массива, стоящих на нечётных местах
 import (
 	"fmt"
 	"math/rand"
@@ -7,31 +6,36 @@ import (
 )
 
 var (
-	m         [25]int
-	max, n, k int
+	m     [25]int
+	av, n int
+	av_n  float64
 )
 
-func arrCr() [25]int {
+func arrCr(x, y int) [25]int {
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < 25; i++ {
-		m[i] = rand.Intn(99) - 50
+		m[i] = rand.Intn(x) - y
 	}
 	return m
 }
 
 func main() {
-	m = arrCr()
-
-	for i := 0; i < 25; i++ {
-		n = m[i]
-		if n < 0 {
-			n = -n
-		}
-		if n > max {
-			max = n
-			k = i
+	x := 99
+	y := 50
+	m = arrCr(x, y)
+	fmt.Println(m)
+	for i := 0; i < len(m); i++ {
+		if m[i]%2 == 0 && i%2 != 0 {
+			av = av + m[i]
+			n++
 		}
 	}
-	fmt.Println(m)
-	fmt.Println(m[k])
+
+	//fmt.Println(av, n)
+	av_n = float64(av) / float64(n)
+	// av_f := float64(av)
+	// n_f := float64(n)
+	// av_n = av_f / n_f
+	fmt.Println(av_n)
+	//fmt.Println(float64(av) / float64(n))
 }
