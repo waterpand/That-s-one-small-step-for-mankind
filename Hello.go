@@ -1,12 +1,12 @@
-package main //Задача. Вывести в порядке возрастания цифры, из которых состоит число.
+package main //Задача. Вывести в порядке возрастания цифры, из которых состоит число и удалить повторяющиеся элементы массива.
 
 import (
 	"fmt"
 )
 
 var (
-	c, min, j int
-	s, p      []int
+	c, min, j, h int
+	s, p         []int
 )
 
 func main() {
@@ -27,6 +27,17 @@ func main() {
 		}
 		s = append(s[:j], s[j+1:]...)
 		p = append(p, min)
+	}
+	fmt.Println(p)
+
+	for i := 0; i < len(p); i++ {
+		h = p[i]
+		for k := 0; k < len(p); k++ {
+			if k != i && h == p[k] {
+				p = append(p[:k], p[k+1:]...)
+				k = 0
+			}
+		}
 	}
 	fmt.Println(p)
 }
