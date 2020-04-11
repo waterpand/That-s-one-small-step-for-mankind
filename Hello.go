@@ -1,4 +1,4 @@
-package main //Задача. Вывести в порядке возрастания цифры, из которых состоит число
+package main //Задача. Вывести в порядке возрастания цифры, из которых состоит число.
 
 import (
 	"fmt"
@@ -25,9 +25,7 @@ func main() {
 				j = k
 			}
 		}
-		//fmt.Println(min)
 		s = append(s[:j], s[j+1:]...)
-		//fmt.Println(s)
 		p = append(p, min)
 	}
 	fmt.Println(p)
