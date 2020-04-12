@@ -8,10 +8,10 @@ import (
 )
 
 var (
-	m    [80]int
-	s    []int
-	t    [][]int
-	x, y int
+	m               [80]int
+	s               []int
+	t, w            [][]int
+	x, y, z, max, k int
 )
 
 func arrCr(x, y int) [80]int {
@@ -29,7 +29,6 @@ func main() {
 	fmt.Println(m)
 	for i := 0; i < len(m); i++ {
 		s := m[i:] // срез от текущей позиции и до конца массива
-		//fmt.Println(s)
 		for j := 0; j < len(s)-1; j++ {
 			if s[j] > s[j+1] {
 				if j >= 1 {
@@ -45,4 +44,19 @@ func main() {
 		}
 	}
 	fmt.Println("срез срезов: ", t)
+	fmt.Println(len(t), len(t[4]))
+	k = len(t)
+	for i := 0; i < len(t)-1; i++ {
+		if len(t[i]) > max && i != k {
+			max = len(t[i])
+			k = i
+			//w = append(t, t[k])
+			//w = append(t, t[k+1])
+		}
+	}
+	fmt.Println(t)
+	fmt.Println(t[k])
+	fmt.Println("Срез w: ", w)
+	//w = append(w, t[z][k])
+	//z++
 }
