@@ -1,4 +1,4 @@
-package main //Задача. Найти два максимальных элемента массива.
+package main //Задача. В одномерном массиве удалить все четные элементы и оставить только нечетные.
 
 import (
 	"fmt"
@@ -7,8 +7,9 @@ import (
 )
 
 var (
-	m                   [25]int
-	x, y, max1, max2, k int
+	m    [25]int
+	s    []int
+	x, y int
 )
 
 func arrCr(x, y int) [25]int {
@@ -24,16 +25,10 @@ func main() {
 	y = 50
 	m = arrCr(x, y)
 	for i := 0; i < len(m); i++ {
-		if m[i] > max1 {
-			max1 = m[i]
-			k = i
-		}
-	}
-	for i := 0; i < len(m); i++ {
-		if m[i] > max2 && i != k {
-			max2 = m[i]
+		if m[i]%2 != 0 {
+			s = append(s, m[i])
 		}
 	}
 	fmt.Println(m)
-	fmt.Println(max1, max2)
+	fmt.Println(s)
 }
