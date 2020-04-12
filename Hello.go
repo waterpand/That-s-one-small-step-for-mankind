@@ -1,4 +1,5 @@
 package main //Задача. Найти самые длинные последовательности чисел, упорядоченные по возрастанию.
+// через срез срезов реализовать вывод сначала самых длинных последовательностей
 
 import (
 	"fmt"
@@ -7,14 +8,15 @@ import (
 )
 
 var (
-	m    [50]int
-	s, t []int
+	m    [80]int
+	s    []int
+	t    [][]int
 	x, y int
 )
 
-func arrCr(x, y int) [50]int {
+func arrCr(x, y int) [80]int {
 	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 50; i++ {
+	for i := 0; i < 80; i++ {
 		m[i] = rand.Intn(x) - y
 	}
 	return m
@@ -32,6 +34,7 @@ func main() {
 			if s[j] > s[j+1] {
 				if j >= 1 {
 					fmt.Println(s[:j+1])
+					t = append(t, s[:j+1])
 					i = i + j  // первый цикл перепрыгнет отработанный срез
 					j = len(s) // выход из второго цикла
 				} else {
@@ -41,4 +44,5 @@ func main() {
 			}
 		}
 	}
+	fmt.Println("срез срезов: ", t)
 }
