@@ -1,43 +1,39 @@
-package main //Задача. Вывести в порядке возрастания цифры, из которых состоит число и удалить повторяющиеся элементы массива.
+package main //Задача. Найти два максимальных элемента массива.
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 )
 
 var (
-	c, min, j, h int
-	s, p         []int
+	m                   [25]int
+	x, y, max1, max2, k int
 )
 
-func main() {
-	fmt.Println("Задача: Вывести в порядке возрастания цифры, из которых состоит число.")
-	fmt.Print("Введите число: ")
-	fmt.Scanln(&c)
-	for ; c > 0; c = c / 10 {
-		s = append(s, (c % 10))
+func arrCr(x, y int) [25]int {
+	rand.Seed(time.Now().UnixNano())
+	for i := 0; i < 25; i++ {
+		m[i] = rand.Intn(x) - y
 	}
-	fmt.Println(s)
-	for i := len(s) - 1; i >= 0; i-- {
-		min = 11
-		for k := i; k >= 0; k-- {
-			if s[k] < min {
-				min = s[k]
-				j = k
-			}
-		}
-		s = append(s[:j], s[j+1:]...)
-		p = append(p, min)
-	}
-	fmt.Println(p)
+	return m
+}
 
-	for i := 0; i < len(p); i++ {
-		h = p[i]
-		for k := 0; k < len(p); k++ {
-			if k != i && h == p[k] {
-				p = append(p[:k], p[k+1:]...)
-				k = 0
-			}
+func main() {
+	x = 99
+	y = 50
+	m = arrCr(x, y)
+	for i := 0; i < len(m); i++ {
+		if m[i] > max1 {
+			max1 = m[i]
+			k = i
 		}
 	}
-	fmt.Println(p)
+	for i := 0; i < len(m); i++ {
+		if m[i] > max2 && i != k {
+			max2 = m[i]
+		}
+	}
+	fmt.Println(m)
+	fmt.Println(max1, max2)
 }
