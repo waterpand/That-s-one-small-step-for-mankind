@@ -8,10 +8,10 @@ import (
 )
 
 var (
-	m               [80]int
-	s               []int
-	t, w            [][]int
-	x, y, z, max, k int
+	m                     [80]int
+	s                     []int
+	t, w, q               [][]int
+	x, y, z, max, k, l, c int
 )
 
 func arrCr(x, y int) [80]int {
@@ -44,19 +44,24 @@ func main() {
 		}
 	}
 	fmt.Println("срез срезов: ", t)
-	fmt.Println(len(t), len(t[4]))
-	k = len(t)
-	for i := 0; i < len(t)-1; i++ {
-		if len(t[i]) > max && i != k {
-			max = len(t[i])
-			k = i
-			//w = append(t, t[k])
-			//w = append(t, t[k+1])
+	fmt.Println(len(t))
+	c = len(t) - 1
+	for l := 0; l < c; l++ {
+		k = len(t)
+		max = 0
+		for i := 0; i < len(t)-1; i++ { // попробовать использовать range  https://go-tour-ru-ru.appspot.com/moretypes/16
+			if len(t[i]) > max && i != k {
+				max = len(t[i])
+				k = i
+			}
 		}
+		fmt.Println(t[k])
+		w = append(w, t[k])
+		t = append(t[:k], t[k+1:]...)
+		fmt.Println("Срез w: ", w)
+		fmt.Println("Срез t: ", t)
 	}
-	fmt.Println(t)
-	fmt.Println(t[k])
-	fmt.Println("Срез w: ", w)
-	//w = append(w, t[z][k])
-	//z++
+	w = append(w, t...)
+	fmt.Println("Полный Срез w: ", w)
+	fmt.Println("Пустой Срез t: ", t)
 }
