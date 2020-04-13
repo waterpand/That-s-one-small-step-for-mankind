@@ -1,5 +1,4 @@
-package main //Задача. Найти самые длинные последовательности чисел, упорядоченные по возрастанию.
-// через срез срезов реализовать вывод сначала самых длинных последовательностей
+package main //Задача. Максимальный из отрицательных элементов поменять местами с последним элементом массива.
 
 import (
 	"fmt"
@@ -8,10 +7,8 @@ import (
 )
 
 var (
-	m                  [80]int
-	s                  []int
-	t, w, q            [][]int
-	x, y, z, max, k, c int
+	m               [80]int
+	max, j, n, x, y int
 )
 
 func arrCr(x, y int) [80]int {
@@ -23,48 +20,23 @@ func arrCr(x, y int) [80]int {
 }
 
 func main() {
-	x = 16
-	y = 0
+	x = 25
+	y = 15
 	m = arrCr(x, y)
 	fmt.Println("Исходный массив: ")
 	fmt.Println(m)
-	for i := range m { // вместо for i := 0; i < len(m); i++ {
-		s := m[i:] // срез от текущей позиции и до конца массива
-		for j := 0; j < len(s)-1; j++ {
-			if s[j] > s[j+1] {
-				if j >= 1 {
-					//fmt.Println(s[:j+1])
-					t = append(t, s[:j+1])
-					i = i + j  // первый цикл перепрыгнет отработанный срез
-					j = len(s) // выход из второго цикла
-				} else {
-					i = i + j // происходит тоже самое, что и в случае с true, но срез не выводится на печать, если он состоит из одного элемента.
-					j = len(s)
-				}
-			}
+	max = -100
+	for i, v := range m {
+		if v < 0 && v > max {
+			j = i
+			max = v
 		}
 	}
-	fmt.Println("Все увеличивающиеся последовательности чисел: ")
-	fmt.Println(t)
-	fmt.Println("Количество этих последовательностей: ", len(t))
-	c = len(t) - 1
-	for i := 0; i < c; i++ { //for i := range t {  -- здесь не подходит, не совсем понимаю как, но он вызывает ошибку на полденей итерации.
-		k = len(t)
-		max = 0
-		for l := 0; l < len(t)-1; l++ { // попробовать использовать range  https://go-tour-ru-ru.appspot.com/moretypes/16
-			if len(t[l]) > max && l != k {
-				max = len(t[l])
-				k = l
-			}
-		}
-		//fmt.Println(t[k])
-		w = append(w, t[k])
-		t = append(t[:k], t[k+1:]...)
-		//fmt.Println("Срез w: ", w)
-		//fmt.Println("Срез t: ", t)
+	fmt.Println(max, j)
+	if j != len(m)-1 {
+		m[j] = m[len(m)-1]
+		m[len(m)-1] = max
 	}
-	w = append(w, t...)
-	fmt.Println("Увеличивающиеся последовательности чисел отранжированные по длине: ")
-	fmt.Println(w)
-	//fmt.Println("Пустой Срез t: ", t)
+	fmt.Println("Переработанный массив: ")
+	fmt.Println(m)
 }
