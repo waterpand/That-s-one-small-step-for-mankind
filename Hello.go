@@ -7,13 +7,14 @@ import (
 )
 
 var (
-	m               [80]int
-	max, j, n, x, y int
+	m                  []int
+	max, j, n, x, y, z int
 )
 
-func arrCr(x, y int) [80]int {
+func arrCr(x, y, z int) []int {
+	m = make([]int, z)
 	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < 80; i++ {
+	for i := 0; i < z; i++ {
 		m[i] = rand.Intn(x) - y
 	}
 	return m
@@ -22,7 +23,8 @@ func arrCr(x, y int) [80]int {
 func main() {
 	x = 25
 	y = 15
-	m = arrCr(x, y)
+	z = 80
+	m = arrCr(x, y, z)
 	fmt.Println("Исходный массив: ")
 	fmt.Println(m)
 	max = -100
