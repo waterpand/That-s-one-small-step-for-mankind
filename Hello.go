@@ -1,44 +1,29 @@
-package main //Задача. Максимальный из отрицательных элементов поменять местами с последним элементом массива.
+package main //Задача. Определить сумму покупки.
+// По любому можно сделать эту задачу без второго массива. Посмотреть про поля или каты или еще что-нибудь
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 )
 
 var (
-	m                  []int
-	max, j, n, x, y, z int
+	goods                 = [...]string{"Огурцы", "Помидоры", "Яблоки", "Лимоны", "Апельсины", "Бананы", "Мандарины", "Груши", "Курица", "Сыр", "Укроп", "Петрушка", "Масло", "Молоко", "Сахар", "Чай", "Виноград"}
+	price                 = [...]float64{77.50, 180, 95.70, 233, 99.99, 67, 117, 200, 235.70, 473.85, 23, 18, 178.40, 67, 54, 80, 145}
+	weight, sum, discount float64
+	j                     int = 20
 )
 
-func arrCr(x, y, z int) []int {
-	m = make([]int, z)
-	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < z; i++ {
-		m[i] = rand.Intn(x) - y
-	}
-	return m
-}
-
 func main() {
-	x = 25
-	y = 15
-	z = 80
-	m = arrCr(x, y, z)
-	fmt.Println("Исходный массив: ")
-	fmt.Println(m)
-	max = -100
-	for i, v := range m {
-		if v < 0 && v > max {
-			j = i
-			max = v
+	for i, v := range goods {
+		fmt.Println(i+1, "- ", v, "- ", price[i])
+	}
+	for j != 0 {
+		fmt.Print("Введите номер товара или 0 для завершения покупок: ")
+		fmt.Scanln(&j)
+		if j != 0 {
+			fmt.Print("Вы выбрали ", goods[j-1], " Введите необходимый вес или количество: ")
+			fmt.Scanln(&weight)
+			sum = sum + weight*price[j-1]
 		}
 	}
-	fmt.Println(max, j)
-	if j != len(m)-1 {
-		m[j] = m[len(m)-1]
-		m[len(m)-1] = max
-	}
-	fmt.Println("Переработанный массив: ")
-	fmt.Println(m)
+	fmt.Println("Всего покупок на ", sum, "руб.")
 }
