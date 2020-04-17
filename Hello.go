@@ -1,12 +1,11 @@
 package main //Задача. Определить сумму покупки.
-// Решение через карты и структуры.
-//прикрутить добавление или удаление товара.
+//прикрутить добавление или удаление товара.  -->    <--
 //убрать, что можно, в функции.
-//Сделать, чтобы при выборе товар исчезал из списка.
+//Сделать, чтобы при выборе товар исчезал из списка. --> delete(tempList, j) <--
 //Как узнать размер map? --> len(priceList) <--
 //Предусмотреть ошибочный ввод номера товара  --> elem, ok = m[key] <--
 // Группы товаров..
-//При удалении элемента из tempList он так же удаляется из priceList, как этого избежать???
+// сделать обновление листа для добавленных или удаленных
 
 import (
 	"fmt"
@@ -24,9 +23,11 @@ var (
 		11: {"Укроп", 23}, 12: {"Петрушка", 18}, 13: {"Масло", 178.40}, 14: {"Молоко", 67}, 15: {"Сахар", 54},
 		16: {"Чай", 80}, 17: {"Виноград", 145},
 	}
-	tempList, t map[int]Goods
-	weight, sum float64
-	j           int = 20
+	tempList, t     map[int]Goods
+	weight, sum, pr float64
+	tit             string
+	x               int
+	j               int = 20
 )
 
 func listP(tempList map[int]Goods, d int) {
@@ -47,6 +48,15 @@ func createMap(h map[int]Goods) map[int]Goods {
 	return t
 }
 
+func addGoods(tit string, pr float64) { // чтобы не просто добавлять в конец, а заполнять пустоты нужно сделать через range...наверное
+	key := len(priceList) + 1
+	priceList[key] = Goods{tit, pr}
+}
+
+func delGoods(x int) {
+	delete(priceList, x)
+}
+
 func main() {
 	d := 0
 	tempList = createMap(priceList)
@@ -62,7 +72,7 @@ func main() {
 			sum = sum + weight*p.price
 			delete(tempList, j)
 			d = d + 1 // Не знаю как сделать иначе// счетчик удалений, компенсирует уменьшение длины массива, из-за чего список выводится не весь.
-		} else if j > len(tempList)+d && j != 99 {
+		} else if j > len(tempList)+d && j != 99 && j != 101 && j != 202 {
 			fmt.Println("Введен неверный номер товара! Попробуйте снова")
 		} else if j == 99 { // этот цикл для проверки первоначальной карты
 			for q := 1; q <= len(priceList); q++ {
@@ -74,7 +84,18 @@ func main() {
 				}
 			}
 
-		} else if j != 0 && j < len(tempList)+d {
+		} else if j == 101 { // добавление элемента
+			fmt.Println("Добавление товара в список: ")
+			fmt.Print("Введите название товара ")
+			fmt.Scanln(&tit)
+			fmt.Print("Введите цену на ", tit, " ")
+			fmt.Scanln(&pr)
+			addGoods(tit, pr)
+		} else if j == 202 { // удаление товара
+			fmt.Print("Выберите товар, который будет удален из списка: ")
+			fmt.Scanln(&x)
+			delGoods(x)
+		} else if j != 0 && j <= len(tempList)+d {
 			f := priceList[j]
 			fmt.Println("Вы уже взяли", f.title, "выберите другой товар или 0 для завершения")
 		}
