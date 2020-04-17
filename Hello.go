@@ -6,6 +6,7 @@ package main //Задача. Определить сумму покупки.
 //Как узнать размер map? --> len(priceList) <--
 //Предусмотреть ошибочный ввод номера товара  --> elem, ok = m[key] <--
 // Группы товаров..
+//При удалении элемента из tempList он так же удаляется из priceList, как этого избежать???
 
 import (
 	"fmt"
@@ -27,21 +28,50 @@ var (
 	j           int = 20
 )
 
-func main() {
-	fmt.Println("Всегда в наличии ", len(priceList), "наименований товара: ")
-	for i := 1; i < 18; i++ {
-		fmt.Println(i, "--", priceList[i])
+func listP(tempList map[int]Goods, d int) {
+	fmt.Println("В наличии ", len(tempList), "наименований товара: ")
+	for i := 1; i <= len(tempList)+d; i++ { //После каждого удаления элемента в функцию возвращается карта с меньшим len и список выводится не весь
+		o, ok := tempList[i]
+		if ok == true {
+			fmt.Println(i, "--", o)
+		}
 	}
+}
+
+func main() {
+	tempList := priceList
+	d := 0
+	// fmt.Println("Всегда в наличии ", len(tempList), "наименований товара: ")
+	// for i := 1; i < 18; i++ {
+	// 	fmt.Println(i, "--", tempList[i])
+	//}
 	for j != 0 {
+		listP(tempList, d)
 		fmt.Print("Введите номер товара или 0 для завершения покупок: ")
 		fmt.Scanln(&j)
-		if j != 0 && j <= len(priceList) {
-			p := priceList[j]
+		p, ok := tempList[j]
+		if j != 0 && j <= len(tempList)+d && ok == true {
+			//p := tempList[j]
 			fmt.Print("Вы выбрали ", p.title, " Введите необходимый вес или количество: ")
+			fmt.Println(priceList[j])
 			fmt.Scanln(&weight)
 			sum = sum + weight*p.price
-		} else if j > len(priceList) {
+			delete(tempList, j)
+			d = d + 1 // Не знаю как сделать иначе// счетчик удалений, компенсирует уменьшение длины массива, из-за чего список выводится не весь.
+		} else if j > len(tempList)+d && j != 99 {
 			fmt.Println("Введен неверный номер товара! Попробуйте снова")
+		} else if j == 99 {
+			for q := 1; q <= len(priceList); q++ { //После каждого удаления элемента в функцию возвращается карта с меньшим len и список выводится не весь
+				om, okk := priceList[q]
+				if okk == true {
+					fmt.Println(q, "--", om)
+				} else {
+					fmt.Println("Такого ключа не существует")
+				}
+			}
+
+		} else if j != 0 && j < len(tempList)+d {
+			fmt.Println("Вы уже взяли этот товар")
 		}
 	}
 	fmt.Println("Всего покупок на ", sum, "руб.")
