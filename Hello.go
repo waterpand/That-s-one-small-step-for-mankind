@@ -1,14 +1,13 @@
-package main //Задача. В массиве, состоящем из положительных и отрицательных чисел, определить, сколько элементов превосходят по модулю максимальный элемент.
+package main //Задача. Вывести на экран значения массива по спирали. Будем понимать под этим следующее. Если массив состоит из 100 элементов, то выводить по 10 элементов в каждой строке, при этом каждая вторая строка должна выводиться "задом наперед": сначала последние элементы строки, а затем первые.
 import (
 	"fmt"
-	"math"
 	"math/rand"
 	"time"
 )
 
 var (
-	m               []int
-	x, y, z, k, max int
+	m       []int
+	z, y, x int
 )
 
 func slCr(x, y, z int) []int {
@@ -21,22 +20,41 @@ func slCr(x, y, z int) []int {
 }
 
 func main() {
-	x = 50
-	y = 35
-	z = 125
+	x = 1000
+	y = 0
+	fmt.Println("Введите размер массива: ")
+	fmt.Scan(&z)
 	m = slCr(x, y, z)
-	fmt.Println("Исходный массив: ")
-	fmt.Println(m)
-	for i := range m {
-		if m[i] > max {
-			max = m[i]
+	for i := 0; i < z; i++ {
+		if (i/10)%2 != 0 && i%10 == 9 {
+			fmt.Println("   ", m[i])
+		} else if (i/10)%2 != 0 {
+			fmt.Print("   ", m[i])
+		} else if (i/10)%2 == 0 && i%10 == 9 {
+			fmt.Println("   ", m[i])
+		} else if (i/10)%2 == 0 {
+			fmt.Print("   ", m[i])
 		}
 	}
-	for i := range m {
-		if math.Abs(float64(m[i])) > float64(max) {
-			k++
+	fmt.Println()
+	for i := 0; i < z; i = i + 10 {
+		switch (i/10)%2 == 0 {
+		case true:
+			fmt.Print("---> ")
+			for k := i; k < i+10; k++ {
+				if k < len(m) {
+					fmt.Print(m[k], " ")
+				}
+			}
+			fmt.Println()
+		case false:
+			fmt.Print("<--- ")
+			for k := i + 9; k >= i; k-- {
+				if k < len(m) {
+					fmt.Print(m[k], " ")
+				}
+			}
+			fmt.Println()
 		}
 	}
-	fmt.Println("Максимальный элемент массива: ", max)
-	fmt.Println("Количество элементов превосходящих по модулю ", max, " равно: ", k)
 }
