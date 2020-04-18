@@ -1,29 +1,42 @@
-package main //Задача. Определить сумму покупки.
-// По любому можно сделать эту задачу без второго массива. Посмотреть про поля или каты или еще что-нибудь
-
+package main //Задача. В массиве, состоящем из положительных и отрицательных чисел, определить, сколько элементов превосходят по модулю максимальный элемент.
 import (
 	"fmt"
+	"math"
+	"math/rand"
+	"time"
 )
 
 var (
-	goods                 = [...]string{"Огурцы", "Помидоры", "Яблоки", "Лимоны", "Апельсины", "Бананы", "Мандарины", "Груши", "Курица", "Сыр", "Укроп", "Петрушка", "Масло", "Молоко", "Сахар", "Чай", "Виноград"}
-	price                 = [...]float64{77.50, 180, 95.70, 233, 99.99, 67, 117, 200, 235.70, 473.85, 23, 18, 178.40, 67, 54, 80, 145}
-	weight, sum, discount float64
-	j                     int = 20
+	m               []int
+	x, y, z, k, max int
 )
 
-func main() {
-	for i, v := range goods {
-		fmt.Println(i+1, "- ", v, "- ", price[i])
+func slCr(x, y, z int) []int {
+	m = make([]int, z)
+	rand.Seed(time.Now().UnixNano())
+	for i := 0; i < z; i++ {
+		m[i] = rand.Intn(x) - y
 	}
-	for j != 0 {
-		fmt.Print("Введите номер товара или 0 для завершения покупок: ")
-		fmt.Scanln(&j)
-		if j != 0 {
-			fmt.Print("Вы выбрали ", goods[j-1], " Введите необходимый вес или количество: ")
-			fmt.Scanln(&weight)
-			sum = sum + weight*price[j-1]
+	return m
+}
+
+func main() {
+	x = 50
+	y = 35
+	z = 125
+	m = slCr(x, y, z)
+	fmt.Println("Исходный массив: ")
+	fmt.Println(m)
+	for i := range m {
+		if m[i] > max {
+			max = m[i]
 		}
 	}
-	fmt.Println("Всего покупок на ", sum, "руб.")
+	for i := range m {
+		if math.Abs(float64(m[i])) > float64(max) {
+			k++
+		}
+	}
+	fmt.Println("Максимальный элемент массива: ", max)
+	fmt.Println("Количество элементов превосходящих по модулю ", max, " равно: ", k)
 }
