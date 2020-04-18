@@ -1,11 +1,7 @@
 package main //Задача. Определить сумму покупки.
-//прикрутить добавление или удаление товара.  -->    <--
-//убрать, что можно, в функции.
-//Сделать, чтобы при выборе товар исчезал из списка. --> delete(tempList, j) <--
-//Как узнать размер map? --> len(priceList) <--
-//Предусмотреть ошибочный ввод номера товара  --> elem, ok = m[key] <--
-// Группы товаров..
-// сделать обновление листа для добавленных или удаленных -- не работает, проблема в размере карты
+//ТОвары мжно удалить или добавить, в том числе в середину списка на место удаленных тоаров
+//реализованы функции печати листа, добавления и удаления элемента, обновления листа.
+//Предусмотрен ошибочный ввод номера товара  --> elem, ok = m[key] <--
 
 import (
 	"fmt"
@@ -70,11 +66,13 @@ func addGoods(tit string, pr float64, z int) int {
 		fmt.Println(priceList[key])
 
 	}
+	tempList = createMap(priceList)
 	return z
 }
 
 func delGoods(x int) {
 	delete(priceList, x)
+	tempList = createMap(priceList)
 }
 
 func main() {
@@ -120,8 +118,12 @@ func main() {
 		} else if j == 303 {
 			tempList = createMap(priceList)
 		} else if j != 0 && j <= len(tempList)+d {
-			f := priceList[j]
-			fmt.Println("Вы уже взяли", f.title, "выберите другой товар или 0 для завершения")
+			f, ok := priceList[j]
+			if ok == true {
+				fmt.Println("Вы уже взяли", f.title, "выберите другой товар или 0 для завершения")
+			} else {
+				fmt.Println("Данный товар был удален из списка...")
+			}
 		}
 	}
 	fmt.Println("Всего покупок на ", sum, "руб.")
