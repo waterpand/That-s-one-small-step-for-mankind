@@ -1,4 +1,5 @@
-package main //Задача. Определить количество элементов массива, значение которых больше соседних элементов
+package main //Задача. Определение различных (не повторяющихся) цифр, входящих в число
+
 import (
 	"fmt"
 	"math/rand"
@@ -6,31 +7,29 @@ import (
 )
 
 var (
-	m          []int
-	z, y, x, q int
+	m    []int
+	c, n int
 )
 
-func slCr(x, y, z int) []int {
-	m = make([]int, z)
-	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < z; i++ {
-		m[i] = rand.Intn(x) - y
-	}
-	return m
-}
-
 func main() {
-	x = 100
-	y = 0
-	fmt.Println("Введите размер массива: ")
-	fmt.Scan(&z)
-	m = slCr(x, y, z)
-	for i := 1; i < z-1; i++ {
-		if m[i] > m[i-1] && m[i] > m[i+1] {
-			fmt.Print("   ", i, ") - ", m[i])
-			q = q + 1
+	fmt.Println("Введите произвольный множитель числа: ")
+	fmt.Scan(&n)
+	rand.Seed(time.Now().UnixNano())
+	c = (rand.Intn(9999) * 9777) * n
+	fmt.Println(c, " -- полученное число")
+	m = append(m, (c % 10))
+	for ; c > 0; c = c / 10 {
+		f := false
+		for j := 0; j < len(m); j++ {
+			if m[j] == (c % 10) {
+				f = true
+			}
+		}
+		if f == false {
+			m = append(m, (c % 10))
 		}
 	}
-	fmt.Println()
-	fmt.Println(q)
+	for i := len(m) - 1; i >= 0; i-- {
+		fmt.Print(m[i], ", ")
+	}
 }
