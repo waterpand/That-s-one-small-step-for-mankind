@@ -1,4 +1,4 @@
-package main //Задача. Вставка элемента в срез
+package main //Задача. Найти максимальный элемент численного массива
 import (
 	"fmt"
 	"math/rand"
@@ -6,8 +6,8 @@ import (
 )
 
 var (
-	m, n             []int
-	x, y, z, k, l, p int
+	m            []int
+	x, y, z, max int
 )
 
 func sliceCreate(x, y, z int) []int {
@@ -19,18 +19,15 @@ func sliceCreate(x, y, z int) []int {
 }
 
 func main() {
-	x = 50
-	y = 0
-	fmt.Print("Введите размер массива: ")
+	fmt.Print("Slice size: ")
 	fmt.Scanln(&z)
+	x = 99
 	m = sliceCreate(x, y, z)
-	fmt.Println("Исходный массив: ", m)
-	fmt.Print("Введите элемент, который необходимо вставить в срез: ")
-	fmt.Scanln(&l)
-	fmt.Print("Введите индекс нового элемента: ")
-	fmt.Scanln(&k)
-	n = append(n[:], m[:k]...)
-	n = append(n, l)
-	n = append(n[:], m[k:]...)
-	fmt.Println(n)
+	fmt.Println(m)
+	for _, i := range m {
+		if i > max {
+			max = i
+		}
+	}
+	fmt.Println(max)
 }
